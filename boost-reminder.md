@@ -1,4 +1,4 @@
-# :rocket: Unser Community-Ziel im {{MONTH}}: Weiter gemeinsam wachsen
+## :rocket: Auch im **{{MONTH}}** möchten wir unsere Community gemeinsam weiter wachsen lassen!
 
 @everyone,
 eines unserer zentralen Ziele ist der Ausbau unserer Community. Denn mit jedem neuen Mitglied wächst nicht nur unsere Reichweite, sondern auch die Vielfalt an Spielern und Spielgruppen. So finden sich für immer mehr Spiele passende Mitspieler zusammen und jeder profitiert von einer aktiven, lebendigen Community. Ihr alle könnt dazu beitragen, dass genau das gelingt:
