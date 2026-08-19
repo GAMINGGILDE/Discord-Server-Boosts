@@ -79,14 +79,14 @@ Unter **Repository secrets** wird anschließend ein neues Secret angelegt.
 Name:
 
 ```text
-DISCORD_WEBHOOK_URL
+DISCORD_BOOSTS_URL
 ```
 
 Als Wert wird die zuvor aus Discord kopierte Webhook-URL eingetragen.
 Die GitHub Action kann anschließend über
 
 ```yaml
-${{ secrets.DISCORD_WEBHOOK_URL }}
+${{ secrets.DISCORD_BOOSTS_URL }}
 ```
 
 auf die URL zugreifen, ohne dass diese im Quellcode des Repositorys sichtbar ist.
@@ -238,7 +238,7 @@ hinterlegt werden.
 Stattdessen wird ausschließlich das GitHub Secret
 
 ```text
-DISCORD_WEBHOOK_URL
+DISCORD_BOOSTS_URL
 ```
 
 verwendet.
@@ -272,7 +272,7 @@ boost-reminder.yml
         │
         └── Zeitsteuerung und Versandlogik
 
-DISCORD_WEBHOOK_URL
+DISCORD_BOOSTS_URL
         │
         └── geschützter Zugang zum Discord-Webhook
 ```
