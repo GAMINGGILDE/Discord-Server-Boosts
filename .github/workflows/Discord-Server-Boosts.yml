@@ -1,29 +1,47 @@
 name: Discord Server Boosts Erinnerung
-env:
-  DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-run: |
-  MONTH=$(TZ="Europe/Berlin" date +%m)
 
-  case "$MONTH" in
-    01) MONTH_NAME="Januar" ;;
-    02) MONTH_NAME="Februar" ;;
-    03) MONTH_NAME="März" ;;
-    04) MONTH_NAME="April" ;;
-    05) MONTH_NAME="Mai" ;;
-    06) MONTH_NAME="Juni" ;;
-    07) MONTH_NAME="Juli" ;;
-    08) MONTH_NAME="August" ;;
-    09) MONTH_NAME="September" ;;
-    10) MONTH_NAME="Oktober" ;;
-    11) MONTH_NAME="November" ;;
-    12) MONTH_NAME="Dezember" ;;
-  esac
+on:
+  schedule:
+    # Jeden 1. des Monats um 18:00 UTC
+    - cron: "0 18 1 * *"
 
-  sed "s/{{MONTH}}/$MONTH_NAME/g" discord-message.md > message.md
+  workflow_dispatch:
 
-  jq -Rs '{content: .}' message.md > payload.json
+jobs:
+  send-discord-message:
+    runs-on: ubuntu-latest
 
-  curl --fail-with-body \
-    -H "Content-Type: application/json" \
-    -d @payload.json \
-    "$DISCORD_WEBHOOK_URL"
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Discord-Nachricht vorbereiten und senden
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+        run: |
+          MONTH=$(TZ="Europe/Berlin" date +%m)
+
+          case "$MONTH" in
+            01) MONTH_NAME="Januar" ;;
+            02) MONTH_NAME="Februar" ;;
+            03) MONTH_NAME="März" ;;
+            04) MONTH_NAME="April" ;;
+            05) MONTH_NAME="Mai" ;;
+            06) MONTH_NAME="Juni" ;;
+            07) MONTH_NAME="Juli" ;;
+            08) MONTH_NAME="August" ;;
+            09) MONTH_NAME="September" ;;
+            10) MONTH_NAME="Oktober" ;;
+            11) MONTH_NAME="November" ;;
+            12) MONTH_NAME="Dezember" ;;
+          esac
+
+          sed "s/{{MONTH}}/$MONTH_NAME/g" boost-reminder.md > message.md
+
+          jq -Rs '{content: .}' message.md > payload.json
+
+          curl --fail-with-body \
+            -H "Content-Type: application/json" \
+            -d @payload.json \
+            "$DISCORD_WEBHOOK_URL"
